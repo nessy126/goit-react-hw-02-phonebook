@@ -6,51 +6,30 @@ import ContactList from "./components/ContactList/ContactList"
 
 class App extends Component {
   state = {
-    contacts: [],
-    name: "",
-    number: "",
+    contacts: [
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+    ],
+    filter: "gfd",
   }
 
-  handleInputChange = (e) => {
-    console.log(e.target.name + ' :' + e.target.value)
-    // this.setState([e.target.name]: e.target.value)
-    const { name } = e.target.name
-    const { number } = e.target.number
-
-    this.setState({ name: name, number: number })
-      console.log(this.state)
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault()
-    // console.log(e.target.name.name) //tag input name - значение атрибута name
-    // console.log(e.target.number.name) //tag input number - значение атрибута name
-
-    // console.log(e.target.name.value)
-    // console.log(e.target.number.value)
-    const newContact = {
-      name: this.state.name,
-      id: nanoid(),
-    }
-    this.setState({
-      name: e.target.name.value,
-      number: e.target.number.value,
-    })
-
-    console.log(this.state)
+  addContact = (newContact) => {
+    this.setState((prev) => ({
+      contacts: [...prev.contacts, newContact],
+    }))
   }
 
   render() {
     return (
       <div className="App">
         <h1>Phonebook</h1>
-        <Form
-          handleInputChange={this.handleInputChange}
+        <Form contacts={this.state.contacts} addContact={this.addContact} />
+        <ContactList
           contacts={this.state.contacts}
-          name={this.state.name}
-          handleSubmit={this.handleSubmit}
+          filter={this.state.filter}
         />
-        <ContactList />
       </div>
     )
   }

@@ -7,14 +7,8 @@ class Form extends Component {
     number: "",
   }
 
-  handleInputChange = (e) => {
-    e.target.name === "name"
-      ? this.setState({
-          name: e.target.value,
-        })
-      : this.setState({
-          number: e.target.value,
-        })
+  handleInputChange = (e) => {   
+      this.setState({ [e.target.name]: e.target.value })
   }
 
   reset = () => {
@@ -23,6 +17,12 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+
+       if (this.props.contacts.find((el) => el.name === this.state.name )) {
+         alert(this.state.name + "is already exist")
+         return
+    }
+    
     const newContact = {
       name: this.state.name,
       number: this.state.number,
@@ -34,7 +34,6 @@ class Form extends Component {
   }
 
   render() {
-    // const {  contacts } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
         <label>

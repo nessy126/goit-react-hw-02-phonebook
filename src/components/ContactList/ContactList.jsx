@@ -1,45 +1,21 @@
-const ContactList = ({contacts, filter}) => {
+import ContactListItem from "../ContactListItem/ContactListItem";
+
+const ContactList = ({ filterArray, deleteContact }) => {
   return (
     <>
-      <h2>Contacts</h2>
-      <label>
-        Find contact by name<br></br>
-        <input></input>
-      </label>
       <ul>
-        {/* {contacts.map(({ id, name, number }) => (
-          <li key={id}>
-            <p>
-              {name}
-              <span> {number}</span>
-            </p>
-          </li>
-        ))} */}
-        {filter === "" ? ({contacts.map(({ id, name, number }) => (
-          <li key={id}>
-            <p>
-              {name}
-              <span> {number}</span>
-            </p>
-          </li>
-        ))
-          }) :
-          ({
-            const searchContact = contacts.filter(el => {
-              el.toLowerCase().includes(filter.toLowerCase())
-            })
-            searchContact.map(({ id, name, number }) => (
-          <li key={id}>
-            <p>
-              {name}
-              <span> {number}</span>
-            </p>
-          </li>
-        ))})
-      }
+        {filterArray().map(({ id, name, number }) => (
+          <ContactListItem
+            name={name}
+            number={number}
+            key={id}
+            deleteContact={deleteContact}
+          />
+        ))}
       </ul>
     </>
   )
 }
  
 export default ContactList;
+
